@@ -18,7 +18,7 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = "/home/avanzar/gamezhood-project/static/"
+STATIC_ROOT = "/home/devops/ballershub/static/"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
