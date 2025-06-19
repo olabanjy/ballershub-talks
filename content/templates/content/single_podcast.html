@@ -1,0 +1,157 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+    .breadcrumnd-banner:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    </style>
+    <!-- Breadcrumnd Banner Start -->
+    <section class="breadcrumnd-banner"
+             style="background-image: url('{{ the_content.img_detail_banner.url }}')">
+        <div class="container">
+            <div class="breadcrumnd-content text-center">
+                <h3 class="text-uppercase fw-500 white-clr mb-xxl-6 mb-xl-5 mb-4 text-white">{{ the_content.title }}</h3>
+                <ul class="breadcrumnd d-flex justify-content-center align-items-center gap-xxl-3 gap-2">
+                    <li>
+                        <a href="/" class="text-uppercase fw-500">Home</a>
+                    </li>
+                    <li>
+                        <i class="ph ph-caret-right"></i>
+                    </li>
+                    <li>
+                        <a href="{% url 'content:show_detail' the_content.show.slug %}"
+                           class="text-uppercase fw-500">{{ the_content.show.name }}</a>
+                    </li>
+                    <li>
+                        <i class="ph ph-caret-right"></i>
+                    </li>
+                    <li class="text-uppercase">{{ the_content.title }}</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Main start -->
+    <main class="main position-relative overflow-hidden" id="mains">
+        <!-- New Event Details -->
+        <section class="event-details-section whitebg pt-space pb-space">
+            <div class="container">
+                <div class="event-details-thumbbig tilt w-100 mb-xxl-15 mb-xl-12 mb-lg-10 mb-md-8 mb-7">
+                    <video src="{{ the_content.trailer_mp4.url }}"
+                           controlslist="nodownload"
+                           poster="{{ the_content.img_detail_banner.url }}"
+                           class="w-100"
+                           controls>
+                    </video>
+                </div>
+                <div class="row g-xxl-7 g-xl-5 g-lg-5 g-14">
+                    <div class="col-lg-8">
+                        <div class="event-details-wrap">
+                            <div class="d-flex align-items-center gap-xxl-4 gap-xl-3 gap-2 mb-xxl-3 mb-2">
+                                <a href="#" class="d-flex align-items-center gap-2">
+                                    <i class="ph-fill ph-user-circle theme-clr fs18"></i>
+                                    <span class="pra-clr d-block fs14">by {{ the_content.show.name }}</span>
+                                </a>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="ph-fill ph-clock theme-clr fs18"></i>
+                                    <span class="pra-clr d-block fs14">{{ the_content.timedelta }}</span>
+                                </div>
+                            </div>
+                            <h4 class="black-clr mb-xxl-7 mb-xl-5 mb-4">{{ the_content.title }}</h4>
+                            <p class="pra-clr mb-xxl-9 mb-xl-7 mb-lg-5 mb-3">{{ the_content.description }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="event-sidebar-phobox bg4-clr p-xxl-12 p-xl-8 p-lg-6 p-4 mb-xxl-8 mb-xl-6 mb-5">
+                            <div class="items mb-xxl-9 mb-xl-7 mb-lg-5 mb-4">
+                                <span class="fw-700 black-clr mb-1">Episode:</span>
+                                <a href="#" class="theme-clr fw-700 d-block">{{ the_content.position }}</a>
+                            </div>
+                            <div class="items mb-xxl-9 mb-xl-7 mb-lg-5 mb-4">
+                                <span class="fw-700 black-clr mb-1">Genre:</span>
+                                <div class="theme-clr fw-700 d-block">{{ the_content.genre.name }}</div>
+                            </div>
+                            <div class="items mb-xxl-9 mb-xl-7 mb-lg-5 mb-4">
+                                <span class="fw-700 black-clr mb-1">Category:</span>
+                                <a href="#" class="theme-clr fw-700 d-block">{{ the_content.category.name }}</a>
+                            </div>
+                            <div class="items mb-xxl-9 mb-xl-7 mb-lg-5 mb-4">
+                                <span class="fw-700 black-clr mb-1">Show:</span>
+                                <a href="{% url 'content:show_detail' the_content.show.slug %}"
+                                   class="theme-clr fw-700 d-block">{{ the_content.show.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- New Event Details -->
+        <!-- Latest V-01 Episote -->
+        <section class="latest-episode-section whitebg pt-space pb-xxl-17 pb-xl-10 pb-8">
+            <div class="container">
+                <div class="d-flex flex-sm-nowrap flex-wrap gap-5 align-items-center justify-content-between  mb-xxl-15 mb-xl-12 mb-lg-10 mb-8">
+                    <div class="section-title">
+                        <span class="fs18 fw-500 theme-clr d-block mb-lg-4 mb-3"
+                              data-aos="zoom-in-left"
+                              data-aos-duration="1400">Enjoy New Shows</span>
+                        <h3 class="heading black-clr"
+                            data-aos="zoom-in-right"
+                            data-aos-duration="1700">Other episodes</h3>
+                    </div>
+                    <div class="slider-button d-flex align-items-center gap-xxl-2 gap-2">
+                        <div class="cust-test-next cmn-nextpre-controll bg4-clr d-center">
+                            <i class="ph-light ph-arrow-left fs-20"></i>
+                        </div>
+                        <div class="cust-test-prev active cmn-nextpre-controll bg4-clr d-center">
+                            <i class="ph-light ph-arrow-right fs-20"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper latest-episodewrap">
+                    <div class="swiper-wrapper">
+                        {% for episode in other_contents %}
+                            <div class="swiper-slide">
+                                <div class="latest-episode-itemv1">
+                                    <div class="thumb overflow-hidden w-100">
+                                        <img src="{{ episode.img_thumbnail.url }}"
+                                             alt="img"
+                                             class="overflow-hidden w-100">
+                                    </div>
+                                    <div class="content p-xxl-8 p-xl-6 p-lg-5 p-4">
+                                        <div class="fashion-life d-flex align-items-center gap-2 mb-xxl-5 mb-xl-3 mb-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="icon d-center theme-bg">
+                                                    <i class="ph-fill ph-headphones white-clr fs20"></i>
+                                                </div>
+                                                <a href="{% url 'content:show_detail' episode.show.slug %}"
+                                                   class="theme-clr fs18 fw-700 body-font">{{ episode.show.name }}</a>
+                                            </div>
+                                            <span class="episode-sri d-flex align-items-center pra-clr position-relative">Episode {{ episode.position }}</span>
+                                        </div>
+                                        <h5 class="mb-xxl-6 mb-xl-5 mb-4">
+                                            <a href="{% url 'content:content_detail' episode.slug %}"
+                                               class="black-clr fw-700">{{ episode.title }}</a>
+                                        </h5>
+                                        <a href="{% url 'content:content_detail' episode.slug %}"
+                                           class="view-all d-flex align-items-center gap-2 text-uppercase">
+                                            Watch Now
+                                            <i class="ph-bold ph-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Latest V-01 Episote -->
+    </main>
+    <!-- Main End -->
+{% endblock content %}

@@ -1,0 +1,335 @@
+//breadcrumnd banner start
+
+.cmn-breadcrumnd-header {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.breadcrumnd-banner {
+	background: url(../img/banner/base.jpg) no-repeat center center;
+	background-size: cover;
+	padding: 244px 2px 130px;
+	h3 {
+		letter-spacing: 3px;
+	}
+	.breadcrumnd {
+		li {
+			font-size: 14px;
+			color: rgba(255, 255, 255, 0.6);
+			font-family: var(--body-font);
+			a {
+				font-size: 14px;
+				color: rgba(255, 255, 255, 0.6);
+				font-family: var(--body-font);
+				transition: all 0.4s;
+				&:hover {
+					color: var(--primary);
+				}
+			}
+		}
+	}
+
+	@include maxQuery(1399) {
+		padding: 190px 2px 120px;
+	}
+	@include maxQuery(991) {
+		padding: 200px 1px 100px;
+	}
+	@include maxQuery(575) {
+		padding: 180px 1px 80px;
+	}
+}
+
+//Hero Section Version One
+.hero-section-version1 {
+	background: url(../img/banner/bg-header-home-1.jpg) no-repeat center center;
+	background-size: cover;
+	padding: 285px 5px 250px;
+	z-index: 1;
+	.hero-v1-content {
+		position: relative;
+		.listen-subtile {
+			font-size: 100px;
+			font-family: "Reey", sans-serif;
+			color: rgb(255, 255, 255);
+			line-height: 1.2;
+			display: block;
+		}
+		.listing-text {
+			max-width: 322px;
+			height: 222px;
+			display: block;
+			margin: 0 auto -60px;
+			img {
+				width: 100%;
+				object-fit: contain;
+				height: 100%;
+			}
+		}
+		.hero-title {
+			font-size: 100px;
+			font-weight: 500;
+			font-family: $body-font;
+			line-height: 1.2;
+			word-spacing: 10px;
+			letter-spacing: 20px;
+		}
+		.hero-tag {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			.hero-tag-item {
+				transition: all 0.4s;
+				border-radius: 100px;
+				i,
+				span {
+					transition: all 0.4s;
+				}
+				&:hover {
+					background: $heading;
+					i,
+					span {
+						color: $white;
+					}
+				}
+			}
+		}
+		.bn-arrowv1 {
+			position: absolute;
+			right: 239px;
+			top: 288px;
+			animation: xani 2s linear infinite;
+		}
+	}
+	@include maxQuery(1399) {
+		padding: 240px 5px 190px;
+	}
+	@include maxQuery(1199) {
+		padding: 200px 5px 180px;
+		.hero-v1-content {
+			.hero-title {
+				font-size: 80px;
+				line-height: 1.2;
+				word-spacing: 10px;
+				letter-spacing: 20px;
+			}
+			.listing-text {
+				max-width: 222px;
+				height: 222px;
+				margin: 0 auto -40px;
+			}
+		}
+	}
+	@include maxQuery(991) {
+		padding: 170px 5px 170px;
+		.hero-v1-content {
+			.hero-title {
+				font-size: 60px;
+				line-height: 1.2;
+				word-spacing: 2px;
+				letter-spacing: 12px;
+			}
+			.listing-text {
+				max-width: 180px;
+				height: 222px;
+				margin: 0 auto -40px;
+			}
+			.bn-arrowv1 {
+				display: none;
+			}
+		}
+	}
+	@include maxQuery(767) {
+		padding: 170px 5px 160px;
+	}
+	@include maxQuery(575) {
+		padding: 120px 5px 100px;
+		.hero-v1-content {
+			.hero-title {
+				font-size: 48px;
+				line-height: 1.2;
+				word-spacing: 2px;
+				letter-spacing: 12px;
+			}
+			.listing-text {
+				max-width: 140px;
+				height: 222px;
+				margin: 0 auto -40px;
+			}
+		}
+	}
+	@include maxQuery(440) {
+		.hero-v1-content {
+			.hero-title {
+				font-size: 42px;
+				word-spacing: 2px;
+				letter-spacing: 5px;
+			}
+			.listing-text {
+				max-width: 100px;
+				height: 222px;
+				margin: 0 auto -40px;
+			}
+			.hero-tag {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+			}
+		}
+	}
+}
+@keyframes xani {
+	50% {
+		transform: rotate(5deg);
+	}
+}
+//Hero Section Version One
+
+//Hero Section Version Two
+.hero-section-version2 {
+	background: url(../img/banner/banner-v2.jpg) no-repeat center center;
+	background-size: cover;
+	padding: 285px 5px 180px;
+	z-index: 1;
+	.banner-shape2 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 1;
+	}
+	.hero-v2-content {
+		.listing-text {
+			margin-bottom: -40px;
+			display: block;
+			z-index: 1;
+			position: relative;
+		}
+		.hero-tag {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			.hero-tag-item {
+				transition: all 0.4s;
+				border-radius: 100px;
+				background: #575757;
+				i,
+				span {
+					transition: all 0.4s;
+				}
+				&:hover {
+					background: $heading;
+					i,
+					span {
+						color: $white;
+					}
+				}
+				&:hover {
+					background: $theme;
+				}
+			}
+		}
+		h1 {
+			max-width: 590px;
+		}
+	}
+	@include maxQuery(1399) {
+		padding: 270px 5px 150px;
+	}
+	@include maxQuery(1199) {
+		padding: 260px 5px 150px;
+	}
+	@include maxQuery(991) {
+		padding: 200px 5px 130px;
+		.hero-v2-content {
+			.hero-title {
+				font-size: 60px;
+			}
+			.listing-text {
+				margin-bottom: -10px;
+			}
+		}
+	}
+	@include maxQuery(767) {
+		padding: 160px 5px 90px;
+		.hero-v2-content {
+			.hero-title {
+				font-size: 48px;
+			}
+			.listing-text {
+				margin-bottom: -1px;
+				width: 300px;
+				img {
+					width: 100%;
+				}
+			}
+		}
+	}
+	@include maxQuery(420) {
+		padding: 160px 5px 90px;
+		.hero-v2-content {
+			.hero-title {
+				font-size: 38px;
+			}
+			.listing-text {
+				margin-bottom: -1px;
+				width: 200px;
+				img {
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+//Hero Section Version Two
+
+//Hero Section Version Three
+.hero-section-version3 {
+	padding-top: 145px;
+	z-index: 1;
+	.hero-v3-content {
+		max-width: 589px;
+		margin-left: auto;
+		.subtitle-v3 {
+			background: $heading;
+			padding: 8px 20px;
+			color: $theme;
+			display: inline-block;
+			letter-spacing: 2.5px;
+		}
+	}
+	@include maxQuery(991) {
+		padding-top: 90px;
+	}
+}
+.hero-content-wrapv3 {
+	background: url(../img/banner/banner-v3.png) no-repeat top center;
+	background-size: cover;
+	padding: 168px 5px 140px;
+	@include maxQuery(1199) {
+		padding: 120px 5px 120px;
+	}
+	@include maxQuery(1199) {
+		padding: 105px 5px 95px;
+	}
+}
+//Hero Section Version Three
+
+//Episode breadcrumnd
+.breadcrumnd-episode-details {
+	background: url(../img/podcast/edisode-detailsbg.png) no-repeat center center;
+	background-size: cover;
+	padding: 305px 2px 220px;
+	overflow: hidden;
+	.breadcrumnd-content {
+		max-width: 740px;
+	}
+	@include maxQuery(1399) {
+		padding: 250px 2px 160px;
+	}
+	@include maxQuery(991) {
+		padding: 200px 2px 120px;
+	}
+	@include maxQuery(400) {
+		padding: 180px 2px 100px;
+	}
+}
+//Episode breadcrumnd

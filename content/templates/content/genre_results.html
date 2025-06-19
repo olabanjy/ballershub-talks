@@ -1,0 +1,92 @@
+{% extends "content/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <!-- Breadcrumnd Banner Start -->
+    <section class="breadcrumnd-banner">
+        <div class="container">
+            <div class="breadcrumnd-content text-center">
+                <h3 class="text-uppercase fw-500 white-clr mb-xxl-6 mb-xl-5 mb-4">{{ genre.name }}</h3>
+                <ul class="breadcrumnd d-flex justify-content-center align-items-center gap-xxl-3 gap-2">
+                    <li>
+                        <a href="/" class="text-uppercase fw-500">Home</a>
+                    </li>
+                    <li>
+                        <i class="ph ph-caret-right"></i>
+                    </li>
+                    <li class="text-uppercase">{{ genre.name }}</li>
+                </ul>
+                <p class="white-clr mt-3">Found {{ contents.paginator.count }} episodes in this genre</p>
+            </div>
+        </div>
+    </section>
+    <!-- Main start -->
+    <main class="main position-relative overflow-hidden" id="mains">
+        <!-- Listing v2 Episote -->
+        <section class="listing-section position-relative zindex1 whitebg pt-space pb-space">
+            <div class="container">
+                <div class="row g-xxl-7 g-4">
+                    {% for episode in contents %}
+                        <div class="col-lg-4 col-md-6 col-sm-6"
+                             data-aos="fade-up"
+                             data-aos-duration="1000">
+                            <div class="latest-episode-itemv1">
+                                <div class="thumb overflow-hidden w-100">
+                                    <img src="{{ episode.img_thumbnail.url }}"
+                                         alt="Episode thumbnail"
+                                         width="400"
+                                         height="300"
+                                         class="overflow-hidden w-100">
+                                </div>
+                            </div>
+                            <div class="content p-xxl-8 p-xl-6 p-lg-5 p-4">
+                                <div class="fashion-life d-flex align-items-center gap-2 mb-xxl-5 mb-xl-3 mb-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="icon d-center theme-bg">
+                                            <i class="ph-fill ph-headphones white-clr fs20"></i>
+                                        </div>
+                                        <a href="{% url 'content:show_detail' episode.show.slug %}"
+                                           class="theme-clr fs14 fw-700 body-font">{{ episode.show.name }}</a>
+                                    </div>
+                                    <span class="episode-sri d-flex align-items-center pra-clr position-relative">Episode {{ episode.position }}</span>
+                                </div>
+                                <h5 class="mb-xxl-6 mb-xl-5 mb-4">
+                                    <a href="{% url 'content:content_detail' episode.slug %}"
+                                       class="black-clr fw-700">{{ episode.title }}</a>
+                                </h5>
+                                <a href="{% url 'content:content_detail' episode.slug %}"
+                                   class="view-all d-flex align-items-center gap-2 text-uppercase">
+                                    Watch Now
+                                    <i class="ph-bold ph-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-12">
+                    {% if contents.has_other_pages %}
+                        <div class="pagination">
+                            {% if contents.has_previous %}
+                                <a class="prev page-numbers"
+                                   href="?page={{ contents.previous_page_number }}"><span class="screen-reader-text">Previous Page</span></a>
+                            {% endif %}
+                            {% for num in contents.paginator.page_range %}
+                                {% if contents.number == num %}
+                                    <span aria-current="page" class="page-numbers current"><span class="screen-reader-text">Page</span>{{ num }}</span>
+                                {% else %}
+                                    <a class="page-numbers" href="?page={{ num }}"><span class="screen-reader-text">Page</span>{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if contents.has_next %}
+                                <a class="next page-numbers"
+                                   href="?page={{ contents.next_page_number }}"><span class="screen-reader-text">Next Page</span></a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        <!-- Listing v2 Episote -->
+    </main>
+    <!-- Main End -->
+{% endblock content %}

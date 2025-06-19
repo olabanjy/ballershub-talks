@@ -1,0 +1,177 @@
+//Tabbing Counting
+.project-counting-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	@include maxQuery(767) {
+		flex-wrap: wrap;
+		gap: 24px 0 !important;
+		.project-count-item {
+			width: calc(90% / 2);
+			.project-icon {
+				img {
+					width: 60px;
+				}
+				&::before {
+					@include box(36);
+				}
+			}
+			h2 {
+				span {
+					font-size: 36px !important;
+				}
+			}
+		}
+		.pro-line {
+			display: none;
+		}
+	}
+}
+.project-count-item {
+	.box {
+		.project-icon {
+			&::before {
+				position: absolute;
+				left: 0;
+				top: 0;
+				content: "";
+				@include box(52);
+				background: $theme;
+				z-index: -1;
+				border-radius: 50%;
+				-webkit-animation: squareToCircle 2s 1s infinite alternate;
+			}
+		}
+		h2 {
+			span {
+				font-size: 48px;
+				font-family: $heading-font;
+				font-weight: 700;
+			}
+		}
+	}
+}
+.pro-line {
+	border-left: 1px solid rgba(255, 255, 255, 0.149);
+	height: 200px;
+}
+@-webkit-keyframes squareToCircle {
+	0% {
+		border-radius: 0 0 0 0;
+		background: darksalmon;
+		transform: rotate(0deg);
+	}
+	25% {
+		border-radius: 50% 0 0 0;
+		background: #ff5100b9;
+		transform: rotate(45deg);
+	}
+	50% {
+		border-radius: 50% 50% 0 0;
+		background: #fc6e2cb9;
+		transform: rotate(90deg);
+	}
+	75% {
+		border-radius: 50% 50% 50% 0;
+		background: #f3763db9;
+		transform: rotate(135deg);
+	}
+	100% {
+		border-radius: 50% 50% 50% 50%;
+		background: #ff4f00;
+		transform: rotate(180deg);
+	}
+}
+@keyframes zin {
+	50% {
+		transform: scale(1.05);
+	}
+}
+//Tabbing Counting
+
+//Subscribers Apple
+.subscriber-apple {
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px 0px 32.9px 2.1px rgba(0, 0, 0, 0.07);
+	.apple-element {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: -1;
+	}
+	position: absolute;
+	top: -80px;
+	left: 0;
+	margin-bottom: -80px;
+}
+//Subscribers Apple
+
+//Custom Tabs
+.tabcontents {
+	position: relative;
+}
+
+.tabcontents .tabitem {
+	transform: translateY(100px);
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	width: 100%;
+	opacity: 0;
+	transition: 0.8s all;
+}
+
+.tabcontents .tabitem.active {
+	position: initial;
+	z-index: 1;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.start-donating-wrap {
+	.tablinks {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		.nav-links {
+			background: $bg4;
+			width: 115px;
+			height: 55px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.tablink {
+				font-size: 16px;
+				font-weight: 500;
+				color: $pra-clr;
+			}
+			&.active {
+				background: $theme;
+				.tablink {
+					color: $white;
+				}
+			}
+		}
+	}
+	.tabcontents {
+		background: $bg4;
+		height: 130px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.tabitem {
+		display: none;
+		.danating-valu-here {
+			span {
+				font-size: 36px;
+				font-weight: 800;
+			}
+		}
+		&.active {
+			display: block;
+		}
+	}
+}
+//Custom Tabs

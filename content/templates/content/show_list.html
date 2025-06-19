@@ -1,0 +1,91 @@
+{% extends "content/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Breadcrumnd Banner Start -->
+    <section class="breadcrumnd-banner">
+        <div class="container">
+            <div class="breadcrumnd-content text-center">
+                <h3 class="text-uppercase fw-500 white-clr mb-xxl-6 mb-xl-5 mb-4">Shows</h3>
+                <ul class="breadcrumnd d-flex justify-content-center align-items-center gap-xxl-3 gap-2">
+                    <li>
+                        <a href="/" class="text-uppercase fw-500">Home</a>
+                    </li>
+                    <li>
+                        <i class="ph ph-caret-right"></i>
+                    </li>
+                    <li class="text-uppercase">Shows</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Main start -->
+    <main class="main position-relative overflow-hidden" id="mains">
+        <!-- Explorer Episote -->
+        <section class="explorer-episode-section position-relative zindex1 whitebg pt-space pb-space">
+            <div class="container">
+                <div class="row g-xxl-7 g-4">
+                    {% for show in shows %}
+                        <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                            <div class="explorer-episode-item p-xxl-8 p-xl-6 p-4">
+                                <div class="thumb position-relative overflow-hidden w-100">
+                                    <img src="{{ show.thumbnail.url }}"
+                                         width="510"
+                                         height="350"
+                                         alt="img"
+                                         class="w-100"
+                                         style="object-fit: cover">
+                                </div>
+                                <h4>
+                                    <a href="{% url 'content:show_detail' show.slug %}"
+                                       class="explore-title d-block black-clr py-xxl-7 py-xl-6 py-lg-6 py-5">
+                                        {{ show.name }}
+                                    </a>
+                                </h4>
+                                <div class="playlist-version001-wrap playlist-version002-wrap playlist-version004-wrap  border-0 shadow-0 mb-xxl-8 mb-xl-6 mb-5">
+                                    <div class="audioplayer-listing-wraptwoverstion">
+                                        <div class="play-list d-grid gap-xxl-7 gap-xl-5 gap-lg-4 gap-3">
+                                            {% for episode in show.get_recent_episodes %}
+                                                <div class="play-list-row d-flex align-items-center gap-xxl-1 gap-0"
+                                                     data-track-row="1">
+                                                    <div class="small-toggle-btn cmn-toggle-btnplay">
+                                                        <a href="{% url 'content:content_detail' episode.slug %}">
+                                                            <i class="small-play-btn white-clr">
+                                                            </i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="track-number">1.</div>
+                                                    <div class="track-title">
+                                                        <a class="playlist-track fs20 fw-700 black-clr d-block atitle"
+                                                           href="{% url 'content:content_detail' episode.slug %}"
+                                                           data-play-track="1">
+                                                            <span class="body-font fw-400 pra-clr d-block d-flex align-items-center gap-2 mb-0">Episode {{ episode.position }}</span>
+                                                            {{ episode.title }}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="play-line"></div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{% url 'content:show_detail' show.slug %}"
+                                   class="view-all d-flex bg4-clr align-items-center gap-2 text-uppercase py-xxl-4 py-xl-4 py-3 px-xxl-8 px-xl-6 px-5">
+                                    View All Episodes
+                                    <i class="ph-bold ph-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Play ShapeRounded -->
+            <img src="{% static 'assets/img/element/play-shape.png' %}"
+                 alt="img"
+                 class="play-rounded"
+                 data-aos="zoom-in-right"
+                 data-aos-duration="1800">
+        </section>
+        <!-- Explorer Episote -->
+    </main>
+    <!-- Main End -->
+{% endblock content %}

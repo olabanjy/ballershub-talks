@@ -1,0 +1,60 @@
+//common button
+.cmn-btn {
+	transition: all 0.4s;
+	.icons {
+		transform: rotate(60deg);
+		transition: all 0.4s;
+	}
+	&:hover {
+		border-color: $theme !important;
+		color: $theme !important;
+		.get-text {
+			color: $theme !important;
+		}
+		.icons {
+			transform: rotate(90deg);
+			i {
+				color: $theme !important;
+			}
+		}
+	}
+}
+
+.touch-btn {
+	font-size: 12px;
+	border-radius: 100px;
+	transition: all 0.5s;
+	font-weight: 700 !important;
+	letter-spacing: 0.6px;
+	.icon {
+		@include box(34);
+		border-radius: 50%;
+		i {
+			transition: all 0.4s;
+		}
+	}
+	&:hover {
+		color: var(--white);
+		background: var(--bg1);
+		.icon {
+			i {
+				color: var(--primary);
+			}
+		}
+	}
+}
+
+.view-all {
+	font-size: 12px;
+	font-weight: 700;
+	color: rgb(119, 119, 119);
+	transition: all 0.4s;
+	i {
+		font-size: 16px;
+		transition: all 0.4s;
+	}
+	&:hover {
+		color: $theme;
+	}
+}
+//common button

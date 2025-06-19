@@ -1,0 +1,20 @@
+//custom animation
+@keyframes updown {
+	50% {
+		transform: translateY(100%);
+	}
+}
+@keyframes svgani {
+	50% {
+		fill: $theme;
+		opacity: 0.5;
+	}
+}
+//custom animation
+
+
+@keyframes textani {
+	100%{
+		transform: rotate(390deg);
+	}
+}

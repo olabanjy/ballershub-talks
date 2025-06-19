@@ -1,0 +1,128 @@
+//Contact Us
+.ova-contact-info-2 {
+	.icon {
+		color: var(--heading);
+		font-size: 26px;
+		margin-bottom: 19px;
+		border-radius: 50%;
+		border: 11px solid var(--primary);
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		width: 109px;
+		height: 109px;
+		i {
+			display: flex;
+		}
+	}
+	.contact {
+		.label {
+			font-size: 24px;
+			margin: 0 0px 10px 0px;
+			padding: 0;
+			font-weight: 600;
+			line-height: 1.2em;
+		}
+
+		.info {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			.mases {
+				max-width: 208px;
+				margin: 0 auto;
+			}
+			.item {
+				color: var(--text);
+				line-height: 1.8;
+
+				a {
+					font-size: 20px;
+					color: var(--text);
+					line-height: 1.8;
+
+					-webkit-transition: all 0.3s ease;
+					-o-transition: all 0.3s ease;
+					transition: all 0.3s ease;
+					position: relative;
+
+					&:before {
+						position: absolute;
+						content: "";
+						width: 0%;
+						height: 1px;
+						left: 0px;
+						bottom: 0px;
+						transition: all 500ms ease;
+						background-color: var(--primary);
+					}
+
+					&:hover {
+						color: var(--primary);
+						&:before {
+							width: 100%;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.contact-border1 {
+	position: relative;
+	&::before{
+		position: absolute;
+		content: "";
+		left: 0;
+		top: 50%;
+		width: 1px;
+		background: $pra-clr;
+		height: 200px;
+		transform: translateY(-50%);
+		@include maxQuery(991){
+			display: none;
+		}
+	}
+}
+.contact-left-cont {
+	.common-social {
+		li {
+			a {
+				svg {
+					path {
+						fill: $heading;
+					}
+				}
+				&:hover {
+					svg {
+						path {
+							fill: $white;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.main-contact-form {
+	input,
+	textarea {
+		border: unset;
+		background: $bg4;
+		border-radius: 0;
+
+		&::placeholder {
+			color: #777777;
+		}
+	}
+	.touch-btn {
+		font-size: 12px;
+		font-weight: bold;
+		text-transform: uppercase;
+		&:hover {
+			background: $heading !important;
+			color: $white;
+		}
+	}
+}
+//Contact Us

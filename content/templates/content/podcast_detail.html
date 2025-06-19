@@ -1,0 +1,125 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <style>
+    .breadcrumnd-episode-details:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    </style>
+    <!-- Breadcrumnd Banner Start -->
+    <section class="breadcrumnd-episode-details"
+             style="background-image: url('{{ the_content.banner.url }}')">
+        <div class="container">
+            <div class="breadcrumnd-content">
+                <div class="section-title mb-xxl-12 mb-xl-10 mb-lg-8 mb-7">
+                    <h2 class="heading white-clr"
+                        data-aos="zoom-in-right"
+                        data-aos-duration="1700">{{ the_content.name }}</h2>
+                </div>
+                <div class="subs" data-aos="zoom-in-up" data-aos-duration="1800">
+                    {% comment %} <a href="#" class="touch-btn theme-bg white-clr text-uppercase py-xxl-5 py-xl-4 py-3 px-xxl-12 px-lg-9 px-8">
+                        Subscribe Now
+                    </a> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumnd Banner End -->
+    <!-- Main start -->
+    <main class="main position-relative overflow-hidden" id="mains">
+        <!-- Listing Episode V01 -->
+        <section class="listing-details-section whitebg pt-lg-20 pt-15 mt-xl-5">
+            <div class="container">
+                <div class="listing-details-wrap pb-space">
+                    <div class="details-content">
+                        <p class="pra-clr mb-xxl-9 mb-xl-7 mb-lg-4 mb-3">{{ the_content.about }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Listing Episode V01 -->
+        <!-- Listing v2 Episote -->
+        <section class="listing-section position-relative zindex1 whitebg  pb-space">
+            <div class="container">
+                <div class="d-flex flex-sm-nowrap flex-wrap gap-5 align-items-center justify-content-between  mb-xxl-15 mb-xl-12 mb-lg-10 mb-8">
+                    <div class="section-title">
+                        <span class="fs18 fw-500 theme-clr d-block mb-lg-4 mb-3"
+                              data-aos="zoom-in-left"
+                              data-aos-duration="1400">Enjoy</span>
+                        <h3 class="heading black-clr"
+                            data-aos="zoom-in-right"
+                            data-aos-duration="1700">Episodes</h3>
+                    </div>
+                </div>
+                <div class="row g-xxl-7 g-4">
+                    {% for episode in episodes %}
+                        <div class="col-lg-4 col-md-6 col-sm-6"
+                             data-aos="fade-up"
+                             data-aos-duration="1000">
+                            <div class="latest-episode-itemv1">
+                                <div class="thumb overflow-hidden w-100">
+                                    <img src="{{ episode.img_thumbnail.url }}"
+                                         alt="Episode thumbnail"
+                                         width="400"
+                                         height="300"
+                                         style="object-fit: cover"
+                                         class="overflow-hidden w-100 radius-10">
+                                </div>
+                            </div>
+                            <div class="content p-xxl-8 p-xl-6 p-lg-5 p-4">
+                                <div class="fashion-life d-flex align-items-center gap-2 mb-xxl-5 mb-xl-3 mb-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="icon d-center theme-bg">
+                                            <i class="ph-fill ph-headphones white-clr fs20"></i>
+                                        </div>
+                                        <a href="{% url 'content:show_detail' episode.show.slug %}"
+                                           class="theme-clr fs14 fw-700 body-font">{{ episode.show.name }}</a>
+                                    </div>
+                                    <span class="episode-sri d-flex align-items-center pra-clr position-relative">Episode {{ episode.position }}</span>
+                                </div>
+                                <h5 class="mb-xxl-6 mb-xl-5 mb-4">
+                                    <a href="{% url 'content:content_detail' episode.slug %}"
+                                       class="black-clr fw-700">{{ episode.title }}</a>
+                                </h5>
+                                <a href="{% url 'content:content_detail' episode.slug %}"
+                                   class="view-all d-flex align-items-center gap-2 text-uppercase">
+                                    Watch Now
+                                    <i class="ph-bold ph-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-12">
+                    {% if contents.has_other_pages %}
+                        <div class="pagination">
+                            {% if contents.has_previous %}
+                                <a class="prev page-numbers"
+                                   href="?page={{ contents.previous_page_number }}"><span class="screen-reader-text">Previous Page</span></a>
+                            {% endif %}
+                            {% for num in contents.paginator.page_range %}
+                                {% if contents.number == num %}
+                                    <span aria-current="page" class="page-numbers current"><span class="screen-reader-text">Page</span>{{ num }}</span>
+                                {% else %}
+                                    <a class="page-numbers" href="?page={{ num }}"><span class="screen-reader-text">Page</span>{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if contents.has_next %}
+                                <a class="next page-numbers"
+                                   href="?page={{ contents.next_page_number }}"><span class="screen-reader-text">Next Page</span></a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        <!-- Listing v2 Episote -->
+    </main>
+{% endblock content %}

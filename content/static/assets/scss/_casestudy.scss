@@ -1,0 +1,46 @@
+//Episodes \
+.episode-item {
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px 10px 60px 0px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.microphone-epi{
+		display: flex;
+		align-items: center;
+		gap: 100px;
+	}
+	@include maxQuery(767){
+		gap: 10px;
+		display: grid;
+		justify-content: center;
+		text-align: center;
+		.microphone-epi{
+			justify-content: center;
+			gap: 30px;
+		}
+		.view-all{
+			justify-content: center;
+		}
+	}
+}
+//Episodes
+
+//Listing Episodees
+.listing-details-wrap{
+	.thumb{
+		max-width: 600px;
+		img{
+			width: 100%;
+		}
+	}
+	.listing-timeline{
+		width: 450px;
+	}
+	@include maxQuery(767){
+		.thumb{
+			width: 100%;
+		}
+	}
+}
+//Listing Episodees

@@ -1,0 +1,374 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block head_title %}
+    Home
+{% endblock head_title %}
+{% block content %}
+    <!-- Banner V01 Start -->
+    <section class="hero-section-version1 zindex1 position-relative">
+        <div class="container">
+            <div class="hero-v1-content text-center">
+                <span class="listing-text">
+                    <img src="{% static 'assets/img/banner/listing-text.png' %}" alt="img">
+                </span>
+                <h1 class="hero-title white-clr text-uppercase mb-xxl-13 mb-xl-10 mb-lg-8 mb-md-7 mb-sm-7 mb-6">To Us Daily</h1>
+                {% comment %} <div class="hero-tag">
+                    <a href="#" class="hero-tag-item theme-bg d-flex align-items-center gap-2 py-xxl-3 py-2 px-xxl-8 px-xl-6 px-5">
+                        <i class="ph-fill ph-soundcloud-logo fs20"></i>
+                        <span class="fs12 fw-700 body-font white-clr text-uppercase">Soundcloud</span>
+                    </a>
+                    <a href="#" class="hero-tag-item theme-bg d-flex align-items-center gap-2 py-xxl-3 py-2 px-xxl-8 px-xl-6 px-5">
+                        <i class="ph-fill ph-spotify-logo fs20"></i>
+                        <span class="fs12 fw-700 body-font white-clr text-uppercase">Spotify</span>
+                    </a>
+                    <a href="#" class="hero-tag-item theme-bg d-flex align-items-center gap-2 py-xxl-3 py-2 px-xxl-8 px-xl-6 px-5">
+                        <i class="ph-fill ph-apple-logo fs20"></i>
+                        <span class="fs12 fw-700 body-font white-clr text-uppercase">Apple</span>
+                    </a>
+                </div> {% endcomment %}
+                <!-- Arrow -->
+                <img src="{% static 'assets/img/element/bn-arrowv1.png' %}"
+                     alt="img"
+                     class="bn-arrowv1">
+            </div>
+        </div>
+    </section>
+    <!-- Main start -->
+    <main class="main position-relative overflow-hidden" id="mains">
+        <!-- Playlist V-01 -->
+        <section class="playlist-section zindex1 whitebg pt-space pb-space position-relative">
+            <div class="container">
+                <div class="row align-items-lg-center justify-content-between flex-row-reverse g-xxl-6 g-6">
+                    <div class="col-lg-6">
+                        <div class="playlist-bg-adding">
+                            <div class="playlist-version001-wrap position-relative overflow-hidden zindex1 p-xxl-15 p-xl-10 p-lg-8 p-sm-6 p-4">
+                                <div class="audioplayer-listing-wraptwoverstion">
+                                    <div class="play-list d-grid gap-xxl-7 gap-xl-5 gap-lg-4 gap-3">
+                                        {% for episode in sel_show_episodes %}
+                                            <div class="play-list-row d-flex align-items-center gap-xxl-1 gap-0"
+                                                 data-track-row="1">
+                                                <div class="small-toggle-btn cmn-toggle-btnplay">
+                                                    <a href="{% url 'content:content_detail' episode.slug %}"
+                                                       target="_blank"
+                                                       rel="noopener noreferrer">
+                                                        <i class="small-play-btn white-clr">
+                                                        </i>
+                                                    </div>
+                                                    <div class="track-number">{{ episode.position }}</div>
+                                                    <div class="track-title">
+                                                        <a class="playlist-track fs20 fw-700 black-clr d-block atitle"
+                                                           href="#"
+                                                           data-play-track="1">
+                                                            <span class="body-font fw-400 pra-clr d-block d-flex align-items-center gap-2 mb-0">
+                                                                Episode {{ episode.position }} <span class="vdot"></span> <span class="pra-clr fw-400">{{ episode.genre }}</span>
+                                                            </span>
+                                                            {{ episode.title }}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="play-line"></div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="playlist-left-content001 pe-xxl-15">
+                                <div class="section-title">
+                                    <span class="fs18 fw-500 theme-clr d-block mb-lg-4 mb-3"
+                                          data-aos="zoom-in-up"
+                                          data-aos-duration="800">Enjoy New shows</span>
+                                    <h2 class="heading black-clr mb-xxl-9 mb-xl-8 mb-lg-6 mb-sm-5 mb-4"
+                                        data-aos="zoom-in-up"
+                                        data-aos-duration="1000">{{ selected_show.name }}</h2>
+                                    <p class="fw-400 pra-clr mb-xxl-7 mb-xl-6 mb-lg-5 mb-sm-4 mb-4"
+                                       data-aos="zoom-in-up"
+                                       data-aos-duration="1200">{{ selected_show.description }}</p>
+                                    <a href="{% url 'content:show_detail' selected_show.slug %}"
+                                       class="touch-btn theme-bg white-clr text-uppercase py-xxl-4 py-xl-4 py-3 px-xxl-12 px-lg-9 px-8">
+                                        View All Episodes
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Element -->
+                <img src="{% static 'assets/img/element/play-shape.png' %}"
+                     alt="img"
+                     class="play-shape">
+                <!-- Element -->
+            </section>
+            <!-- Playlist V-01 -->
+            <!-- Features V-01 -->
+            <section class="feature-section pt-space pb-space bg4-clr zindex1 position-relative">
+                <div class="container">
+                    <div class="section-title text-center mb-xxl-15 mb-xl-12 mb-lg-10 mb-8">
+                        <span class="fs18 fw-500 theme-clr d-block mb-lg-4 mb-3"
+                              data-aos="zoom-in-left"
+                              data-aos-duration="1400">Enjoy New Shows</span>
+                        <h3 class="heading black-clr"
+                            data-aos="zoom-in-right"
+                            data-aos-duration="1700">Featured podcasts</h3>
+                    </div>
+                </div>
+                <div class="swiper feature-wrap">
+                    <div class="swiper-wrapper">
+                        {% for episode in featured_episodes %}
+                            <div class="swiper-slide">
+                                <div class="feature-item whitebg d-xxl-flex d-grid align-items-center gap-xxl-8 gap-xl-6 gap-4">
+                                    <div class="thumb position-relative overflow-hidden">
+                                        <img src="{{ episode.img_thumbnail.url }}"
+                                             alt="img"
+                                             width="310"
+                                             height="312"
+                                             class="overflow-hidden"
+                                             style="object-fit:cover">
+                                        <span class="feature-headphoe">
+                                            <i class="ph-fill ph-headphones"></i>
+                                        </span>
+                                    </div>
+                                    <div class="content px-xxl-0 px-4 pb-xxl-0 pb-7">
+                                        <div class="fashion-life d-flex align-items-center gap-2 mb-xxl-4 mb-xl-3 mb-2">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <a href="{% url 'content:show_detail' episode.show.slug %}"
+                                                   class="theme-clr fs14 fw-700 body-font">{{ episode.show.name }}</a>
+                                            </div>
+                                            <span class="episode-sri d-flex align-items-center pra-clr position-relative">Episode {{ episode.position }}</span>
+                                        </div>
+                                        <h4 class="mb-xxl-8 mb-xl-6 mb-5 d-block">
+                                            <a href="{% url 'content:content_detail' episode.slug %}"
+                                               class="black-clr fw-700">{{ episode.title }}</a>
+                                        </h4>
+                                        <a href="{% url 'content:content_detail' episode.slug %}"
+                                           class="touch-btn bg4-clr black-clr text-uppercase fw-700 py-xxl-4 py-xl-4 py-3 px-xxl-12 px-lg-9 px-8">
+                                            Watch Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="cmn-pagination text-center mt-xxl-15 mt-xl-10 mt-lg-8 mt-6"></div>
+                </div>
+                <!-- Element -->
+                <img src="{% static 'assets/img/element/feature-shape.png' %}"
+                     alt="img"
+                     class="feature-shape">
+                <!-- Element -->
+            </section>
+            <!-- Latest V-01 Episote -->
+            <section class="latest-episode-section whitebg pt-space pb-xxl-17 pb-xl-10 pb-8">
+                <div class="container">
+                    <div class="d-flex flex-sm-nowrap flex-wrap gap-5 align-items-center justify-content-between  mb-xxl-15 mb-xl-12 mb-lg-10 mb-8">
+                        <div class="section-title">
+                            <span class="fs18 fw-500 theme-clr d-block mb-lg-4 mb-3"
+                                  data-aos="zoom-in-left"
+                                  data-aos-duration="1400">Enjoy New Shows</span>
+                            <h3 class="heading black-clr"
+                                data-aos="zoom-in-right"
+                                data-aos-duration="1700">Latest episodes</h3>
+                        </div>
+                        <div class="slider-button d-flex align-items-center gap-xxl-2 gap-2">
+                            <a href="{% url 'content:latest_episodes' %}"
+                               class="touch-btn theme-bg white-clr text-uppercase py-xxl-4 py-xl-4 py-3 px-xxl-12 px-lg-9 px-8">
+                                View All Episodes
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row g-xxl-7 g-4">
+                        {% for episode in contents %}
+                            <div class="col-lg-4 col-md-6 col-sm-6"
+                                 data-aos="fade-up"
+                                 data-aos-duration="1000">
+                                <div class="latest-episode-itemv1">
+                                    <div class="thumb overflow-hidden w-100">
+                                        <img src="{{ episode.img_thumbnail.url }}"
+                                             alt="img"
+                                             class="overflow-hidden w-100">
+                                    </div>
+                                    <div class="content p-xxl-8 p-xl-6 p-lg-5 p-4">
+                                        <div class="fashion-life d-flex align-items-center gap-2 mb-xxl-5 mb-xl-3 mb-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="icon d-center theme-bg">
+                                                    <i class="ph-fill ph-headphones white-clr fs20"></i>
+                                                </div>
+                                                <a href="{% url 'content:show_detail' episode.show.slug %}"
+                                                   class="theme-clr fs14 fw-700 body-font">{{ episode.show.name }}</a>
+                                            </div>
+                                            <span class="episode-sri d-flex align-items-center pra-clr position-relative">Episode {{ episode.position }}</span>
+                                        </div>
+                                        <h5 class="mb-xxl-6 mb-xl-5 mb-4">
+                                            <a href="{% url 'content:content_detail' episode.slug %}"
+                                               class="black-clr fw-700">{{ episode.title }}</a>
+                                        </h5>
+                                        <a href="{% url 'content:content_detail' episode.slug %}"
+                                           class="view-all d-flex align-items-center gap-2 text-uppercase">
+                                            Watch Now
+                                            <i class="ph-bold ph-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <!-- Latest V-01 Episote -->
+            <!-- Features V-01 -->
+            {% comment %} <!-- New Podcast V-01 -->
+                                                            <section class="new-podcast-sectionv2 position-relative pt-space pb-space">
+                                                                <div class="container">
+                                                                    <div class="new-podcast-wrapsv2">
+                                                                        <div class="icon-thumb d-center theme-bg"
+                                                                             data-aos="zoom-in-left"
+                                                                             data-aos-duration="1600">
+                                                                            <img src="{% static 'assets/img/element/support-listing.png' %}" alt="img">
+                                                        </div>
+                                                        <div class="new-podcast-contentv2">
+                                                            <div class="section-title">
+                                                <span class="fs18 fw-500 theme-clr d-block mb-lg-4 mb-3"
+                                                      data-aos="zoom-in-left"
+                                                      data-aos-duration="1400">Enjoy New Shows</span>
+                                                <h2 class="heading white-clr d-block mb-xxl-15 mb-xl-10 mb-sm-9 mb-8"
+                                                    data-aos="zoom-in-left"
+                                                    data-aos-duration="1600">
+                                                    Support and listen to our latest show on apple podcast
+                                </h2>
+                                <a href="contact.html"
+                                   class="touch-btn theme-bg white-clr text-uppercase py-xxl-5 py-xl-4 py-3 px-xxl-12 px-lg-9 px-8">
+                                    Start Donating
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Element -->
+                <img src="{% static 'assets/img/element/fline.png' %}"
+                     alt="img"
+                     class="podact-line">
+            </section>
+<!-- New Podcast V-01 --> {% endcomment %}
+</main>
+{% endblock content %}
+{% block extra_scripts %}
+    <script type="text/javascript">
+    const swiper = new Swiper('.hero-home-banner', {
+        loop: true, // Infinite loop
+        autoplay: {
+            delay: 3000, // Auto-slide every 3 seconds
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    // check subscribtion status
+    function checkSubStatus() {
+        var url = "/u/check_sub_status/"
+        return fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                return data
+            })
+    }
+
+
+    // Handle Click Event for All Banner Buttons
+    document.querySelectorAll('.banner_btn').forEach(button => {
+        button.addEventListener('click', async (event) => {
+            event.preventDefault(); // Prevent default link behavior
+
+            const data = await checkSubStatus();
+            if (data.status === true) {
+                window.location.href = "#now"; // Scrolls to section
+            } else {
+                window.location.href = "/u/subscribe"; // Redirects to subscription page
+            }
+        });
+    });
+
+
+    $(document).ready(function () {
+
+
+        // const bannerBtn = document.getElementById('banner_btn')
+
+        // bannerBtn.addEventListener("click", () => {
+
+        //     checkSubStatus().then((data) => {
+        //         if (data.status === true) {
+        //             bannerBtn.href = "#now"
+        //         } else {
+        //             window.location.replace("/u/subscribe");
+        //         }
+
+        //     })
+
+        // })
+
+
+        const togglePlay = (video, player) => {
+            const playBtn = player.querySelector(".play-audio .toggle-play");
+            let playIcon = playBtn.querySelector("i");
+
+            playBtn.addEventListener("click", () => {
+
+                checkSubStatus().then((data) => {
+                    if (data.status === true) {
+                        if (video.paused) {
+                            video.play();
+                            playIcon.classList.remove("ti-player-play");
+                            playIcon.classList.add("ti-player-pause");
+                        } else {
+                            video.pause();
+                            playIcon.classList.remove("ti-player-pause");
+                            playIcon.classList.add("ti-player-play");
+                        }
+                    } else {
+                        window.location.replace("/u/subscribe");
+                    }
+                })
+
+            });
+        };
+
+
+
+        // check subscribtion status
+        function checkSubStatus() {
+            var url = "/u/check_sub_status/"
+            return fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    return data
+                })
+        }
+
+
+        const initializeVideoPlayer = (video, player) => {
+            setTime(video, player);
+            setTimeLine(video, player);
+            setVolume(video, player);
+            updateTimeline(video, player);
+            togglePlay(video, player);
+        };
+
+        const videoContainers = document.querySelectorAll(".video-container");
+
+        videoContainers.forEach((container, index) => {
+            const video = container.querySelector("video");
+            const player = container.querySelector(".audio-player");
+            initializeVideoPlayer(video, player);
+        });
+    })
+
+    </script>
+{% endblock extra_scripts %}

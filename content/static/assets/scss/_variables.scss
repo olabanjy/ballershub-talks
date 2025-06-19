@@ -1,0 +1,44 @@
+:root {
+	--body: #ffffff;
+	--primary: #ff4f00;
+	--text: #777777;
+	--heading: #000000;
+	--light: #e4e4e4;
+	--black: #000;
+	--borders: rgba(255, 255, 255, 0.1);
+	--white: #fff;
+	--spantext: #757575;
+	--theme: #ff4f00;
+	--bg1: #161616;
+	--bg2: #1b1b1b;
+	--bg3: #fff;
+	--bg4: #f5f5f5;
+	--social: #1E1E1E;
+	--border1: #454750;
+	--pra-clr: #bebebe;
+	--dd-clr: #dadada;
+	--place: #858585;
+	--tag: #646464;
+	--bspan: #ababab;
+}
+
+// Theme Color - Defualt Colors
+$primary: var(--primary);
+$text: var(--text);
+$heading: var(--heading);
+$light: var(--light);
+$black: var(--black);
+$white: var(--white);
+$theme: var(--theme);
+$bg1: var(--bg1);
+$bg2: var(--bg2);
+$bg3: var(--bg3);
+$bg4: var(--bg4);
+$social: var(--social);
+$spantext: var(--spantext);
+$border1: var(--border1);
+$pra-clr: var(--pra-clr);
+$dd-clr: var(--dd-clr);
+$place: var(--place);
+$tag: var(--tag);
+$bspan: var(--bspan);

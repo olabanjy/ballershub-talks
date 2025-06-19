@@ -1,0 +1,363 @@
+// Map section
+.map-section {
+	iframe {
+		width: 100%;
+		height: 470px;
+	}
+	@include maxQuery(1199) {
+		iframe {
+			height: 400px;
+		}
+	}
+	@include maxQuery(991) {
+		iframe {
+			height: 300px;
+		}
+	}
+}
+// Map section
+
+// Sponsor
+.sponsor-section {
+	border-top: 1px solid #e5e5e5;
+	.sponsor-item {
+		margin: 0 auto;
+		max-width: 190px;
+		height: 50px;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			transition: all 0.5s;
+			&:hover{
+				filter: brightness(0);
+			}
+		}
+	}
+}
+// Sponsor
+
+// New Podcast
+.new-podcast-section {
+	position: relative;
+	background: url(../img/banner/new-podcastbg.png) no-repeat center center;
+	background-size: cover;
+	background-attachment: fixed;
+	z-index: 1;
+	.new-podcast-content {
+		.new-logo {
+			width: 140px;
+			height: 44px;
+			display: block;
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+	.big-mike {
+		position: absolute;
+		left: 50px;
+		bottom: -10px;
+		z-index: -1;
+	}
+	.new-pocast-btn{
+		&:hover{
+			background: $white;
+			color: $black;
+		}
+	}
+	@include maxQuery(1800) {
+		.big-mike {
+			width: 80px;
+		}
+	}
+	@include maxQuery(991) {
+		.big-mike {
+			display: none;
+		}
+	}
+}
+// New Podcast
+
+// New Podcastv2
+.new-podcast-sectionv2 {
+	background: url(../img/banner/support-and-listen.jpg) no-repeat center center;
+	background-size: cover;
+	background-attachment: fixed;
+	z-index: 1;
+	.podact-line {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		animation: rots 2s linear infinite;
+	}
+
+	&::before {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		content: "";
+		background-color: rgba(0, 0, 0, 0.691);
+		z-index: -1;
+	}
+}
+.new-podcast-wrapsv2 {
+	display: flex;
+	align-items: center;
+	gap: 142px;
+	.icon-thumb {
+		@include box(220);
+		border-radius: 50%;
+	}
+	.new-podcast-contentv2 {
+		max-width: 650px;
+	}
+	@include maxQuery(1599) {
+		gap: 50px;
+		.icon-thumb {
+			@include box(220);
+			border-radius: 50%;
+		}
+		.new-podcast-contentv2 {
+			max-width: 650px;
+		}
+	}
+	@include maxQuery(991) {
+		gap: 30px;
+		.icon-thumb {
+			@include box(120);
+			border-radius: 50%;
+			img {
+				width: 40px;
+			}
+		}
+		.new-podcast-contentv2 {
+			max-width: 650px;
+		}
+	}
+	@include maxQuery(575) {
+		gap: 20px;
+		display: grid;
+		.icon-thumb {
+			@include box(90);
+			border-radius: 50%;
+			img {
+				width: 30px;
+			}
+		}
+		.new-podcast-contentv2 {
+			max-width: 650px;
+		}
+	}
+}
+
+@keyframes rots {
+	50%{
+		transform: rotate(5deg);
+	}
+}
+// New Podcastv2
+
+// Playlist
+.play-shape {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+// Playlist
+
+// Pesonal Podcast
+.personal-podcast-item {
+	.thumb {
+		margin-top: -32px;
+		transition: all 0.4s;
+	}
+	h5 {
+		max-width: 270px;
+		margin: 0 auto;
+	}
+	&:hover {
+		.thumb {
+			margin-top: -25px;
+		}
+		h5 {
+			a {
+				color: $theme;
+			}
+		}
+		.theme-clr {
+			color: $theme;
+		}
+	}
+	@include maxQuery(991) {
+		.thumb {
+			margin-top: 16px;
+		}
+	}
+}
+// Pesonal Podcast
+
+// Support Donation
+.support-donation {
+	background: url(../img/banner/suport-bg.png) no-repeat center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+// Support Donation
+
+//Feature
+.feature-item {
+	.thumb {
+		img {
+			transition: all 0.4s;
+		}
+		.feature-headphoe {
+			@include box(36);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: $theme;
+			position: absolute;
+			top: 40px;
+			left: 40px;
+		}
+	}
+	.touch-btn {
+		&:hover {
+			background: $theme;
+			color: $white !important;
+		}
+	}
+	h4 {
+		max-width: 262px;
+	}
+	.fashion-life {
+		.episode-sri {
+			padding-left: 10px;
+			&::before {
+				position: absolute;
+				content: "";
+				left: 0;
+				width: 4px;
+				height: 4px;
+				background: $pra-clr;
+				border-radius: 50%;
+			}
+		}
+	}
+	&:hover {
+		.content {
+			.fashion-life {
+				a {
+					color: $theme;
+				}
+			}
+			.black-clr {
+				color: $theme;
+			}
+		}
+		.thumb {
+			img {
+				transform: scale(1.08);
+			}
+		}
+	}
+	@include maxQuery(1399) {
+		.thumb {
+			width: 100%;
+			img {
+				width: 100%;
+			}
+			.feature-headphoe {
+				top: 15px;
+				left: 15px;
+			}
+		}
+	}
+}
+.feature-shape {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+.cmn-pagination .swiper-pagination-bullet {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: rgb(0, 0, 0);
+	opacity: 0.302;
+	position: relative;
+}
+.cmn-pagination .swiper-pagination-bullet-active {
+	background: $theme;
+	opacity: 1;
+}
+//Feature
+
+//Applications
+.application-circle {
+	position: absolute;
+	right: 50px;
+	top: -40px;
+	z-index: -1;
+	animation: cir360 10s linear infinite;
+}
+.application-sponsor {
+	.app-sponsor-item{
+		img{
+			transition: all 0.5s;
+			&:hover{
+				filter: brightness(0);
+			}
+		}
+	}
+	@include maxQuery(991) {
+		.app-sponsor-item {
+			max-width: 120px;
+			img {
+				width: 100%;
+				object-fit: contain;
+			}
+		}
+	}
+}
+@keyframes cir360 {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+//Applicationss
+
+//Sponsor V010
+.sponsor-section01{
+	.sponsor-item{
+		img{
+			filter: brightness(25);
+		}
+	}
+}
+.ex-vid{
+	@include box(60);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: $theme;
+	border-radius: 50%;
+	margin: -30px auto 0;
+	position: relative;
+	transition: all 0.4s;
+	&:hover{
+		background: $black;
+		i{
+			color: $white;
+		}
+	}
+}
+//Sponsor V01
