@@ -63,4 +63,9 @@ urlpatterns = [
         export_all_msisdn_query,
         name="export_all_msisdn_query",
     ),
+    path(
+        "callback_notification/",
+        callback_notification,
+        name="callback_notification",
+    ),
 ]

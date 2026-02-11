@@ -130,3 +130,18 @@ class CampaignDuplicateAdmin(admin.ModelAdmin):
     ]
 
     search_fields = ["msisdn", "provider"]
+
+
+@admin.register(CallbackNotification)
+class CallbackNotificationAdmin(admin.ModelAdmin):
+    list_display = [
+        "msisdn",
+        "description",
+        "product_id",
+        "activation",
+        "trx_id",
+        "sequence_no",
+        "created_at",
+    ]
+    search_fields = ["msisdn", "product_id", "trx_id", "sequence_no"]
+    list_filter = ("description", "activation")

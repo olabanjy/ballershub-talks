@@ -517,3 +517,54 @@ def export_all_msisdn_query(request):
     tasks.export_all_msisdns.delay()
 
     return JsonResponse({"status": 200, "message": "Processing report!"})
+
+
+@require_POST
+@csrf_exempt
+def callback_notification(request):
+    """Receive provider callback JSON and save to CallbackNotification."""
+    try:
+        body = (
+            request.body.decode("utf-8")
+            if isinstance(request.body, (bytes, bytearray))
+            else request.body
+        )
+        data = json.loads(body)
+    except Exception:
+        return JsonResponse(
+            {"status": 400, "error": "invalid json"},
+            status=400,
+        )
+
+    msisdn = data.get("msisdn")
+    activation_raw = data.get("activation")
+    activation = None
+    if activation_raw is not None:
+        try:
+            activation = int(activation_raw)
+        except (ValueError, TypeError):
+            activation = None
+
+    productId = data.get("productId") or data.get("productID")
+    description = data.get("description")
+    timestamp = data.get("timestamp")
+    trxID = data.get("trxID") or data.get("trxId")
+    sequenceNo = data.get("sequenceNo")
+
+    try:
+        CallbackNotification.objects.create(
+            msisdn=msisdn,
+            activation=activation,
+            product_id=productId,
+            description=description,
+            timestamp=timestamp,
+            trx_id=trxID,
+            sequence_no=sequenceNo,
+            raw_payload=data,
+        )
+        return JsonResponse({"status": 200, "message": "Saved"})
+    except Exception:
+        return JsonResponse(
+            {"status": 500, "error": "Internal server error"},
+            status=500,
+        )

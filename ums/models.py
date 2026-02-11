@@ -180,3 +180,27 @@ class CampaignDuplicate(models.Model):
 
     def __str__(self):
         return f"{self.msisdn} - {self.occurence}"
+
+
+class CallbackNotification(models.Model):
+    msisdn = models.CharField(max_length=200, blank=True, null=True)
+    activation = models.IntegerField(blank=True, null=True)
+    product_id = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
+    timestamp = models.CharField(max_length=200, blank=True, null=True)
+    trx_id = models.CharField(max_length=200, blank=True, null=True)
+    sequence_no = models.CharField(max_length=200, blank=True, null=True)
+    raw_payload = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name="Raw callback payload",
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.msisdn} - {self.product_id} - {self.timestamp}"
+
+    class Meta:
+        verbose_name = "Callback notification"
+        verbose_name_plural = "Callback notifications"
+        ordering = ["-created_at"]
