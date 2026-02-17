@@ -68,4 +68,5 @@ urlpatterns = [
         callback_notification,
         name="callback_notification",
     ),
+    path("data-sync/", data_sync_v2, name="data_sync_v2"),
 ]

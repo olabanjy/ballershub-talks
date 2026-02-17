@@ -568,3 +568,14 @@ def callback_notification(request):
             {"status": 500, "error": "Internal server error"},
             status=500,
         )
+
+
+@require_POST
+@csrf_exempt
+def data_sync_v2(request):
+    tasks.share_datasync.delay(request.body.decode("utf-8"))
+    the_data = json.loads(request.body)
+
+    tasks.process_datasync.delay(the_data)
+
+    return HttpResponse(200)

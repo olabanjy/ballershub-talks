@@ -184,17 +184,17 @@ def campaign_behaviour(start_date, end_date):
     logger.info(start_date, end_date)
 
     if not (start_date or end_date):
-        logger.info(f"start or end date required")
+        logger.info("start or end date required")
         return
 
     start_date = datetime.strptime(start_date, "%Y-%m-%d")
     end_date = datetime.strptime(end_date, "%Y-%m-%d")
     logger.info(f"pulling reports between {start_date} and {end_date}")
     if end_date <= start_date:
-        logger.info(f"end date should be greater than start date")
+        logger.info("end date should be greater than start date")
         return
     if (end_date - start_date).days > 30:
-        logger.info(f"max days allowed is 30")
+        logger.info("max days allowed is 30")
         return
 
     # pull all datasync subscribtion for each provider
@@ -742,7 +742,7 @@ def fetch_ussd_subscribers():
 
     ### send email
 
-    EMAIL_SUBJECT = f"Daily Digest Subscribers report"
+    EMAIL_SUBJECT = "Daily Digest Subscribers report"
     REPORTING_MSG = """
         Hello Admin,
         Please find the attached report for today.
@@ -908,7 +908,7 @@ def process_visiontrek_postback(tracker_id, sync_id, sub_id):
             and find_promo_msisdn.converted == False
             and find_promo_msisdn.is_convertable == True
         ):
-            postbackUrl = f"https://dailydigest.visiontrek.io/callback"
+            postbackUrl = "https://dailydigest.visiontrek.io/callback"
 
             response_obj = requests.post(
                 postbackUrl,
@@ -971,7 +971,7 @@ def export_user_msisdn(month_num):
 
         ### send email
 
-        EMAIL_SUBJECT = f"Daily Digest MSISDN report"
+        EMAIL_SUBJECT = "Daily Digest MSISDN report"
         REPORTING_MSG = """
             Hello Admin,
             Please find the attached report for today.
@@ -1097,7 +1097,7 @@ def export_all_msisdns():
 
         ### send email
 
-        EMAIL_SUBJECT = f"Daily Digest Subscribers report"
+        EMAIL_SUBJECT = "Daily Digest Subscribers report"
         REPORTING_MSG = """
             Hello Admin,
             Please find the attached all the msisdn export.
@@ -1120,3 +1120,17 @@ def export_all_msisdns():
     except Exception as e:
         logger.error(traceback.format_exc())
         logger.error(e)
+
+
+@shared_task
+def share_datasync(request_body):
+    try:
+        resp = requests.post(
+            "https://api.intellihq.net/api/v1/service/27/sync-notification/",
+            data=request_body,
+            headers={"Content-Type": "application/json"},
+        )
+        resp.raise_for_status()
+    except Exception as req_ex:
+        logger.error(f"Subscription processing error: {req_ex}")
+    logger.info(f"Intelli sync request sent{resp}")
