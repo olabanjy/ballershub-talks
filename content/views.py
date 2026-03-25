@@ -8,13 +8,14 @@ from django.db.models import Q
 from dateutil.relativedelta import relativedelta
 
 
-import json, random
+import json
+import random
 from django.http import JsonResponse
 from ums.decorators import allowed_users
 from .context_processor import fetch_msisdn
 from ums.models import CampaignTracker, UserSubscribtion
 from ums import choices as ums_choices
-import string, random
+import string
 from ums.subscriptionManager import mtnSubscribe
 from ums.tasks import handle_occurence, handle_remarketing
 
@@ -95,7 +96,7 @@ class LatestEpisodesView(View):
         return render(request, template, context)
 
 
-# @allowed_users
+@allowed_users
 def content_detail(request, slug=None):
     # the_content = Content.object.get(slug=slug)
 
@@ -131,7 +132,7 @@ def content_detail(request, slug=None):
     return render(request, template, context)
 
 
-# @allowed_users
+@allowed_users
 def show_detail(request, slug=None):
     the_content = get_object_or_404(Show, slug=slug)
     episodes = Episode.objects.filter(show=the_content, verified=True).order_by(

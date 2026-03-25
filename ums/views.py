@@ -34,7 +34,7 @@ def subscribe(request):
         res = get_random_string(length=32)
         traffic_source = "Organic Search"
 
-        redirect_url = f"http://ng-app.com/Pinesip/daily-digest-podcast-daily-en-doi-web?origin_banner=1&trxId={res}&trfsrc={traffic_source}"
+        redirect_url = f"http://checkout.mtn-ng.dcbprotect.com/v3/lp/mtn-ng/676/ballers-hub-podcast-service-d9d4f?trxId={res}&trfsrc={traffic_source}"
 
         return redirect(redirect_url)
     except Exception as ex:

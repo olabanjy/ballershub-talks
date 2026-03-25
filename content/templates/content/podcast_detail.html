@@ -1,6 +1,7 @@
 {% extends 'content/base.html' %}
 {% load static %}
 {% load humanize %}
+{% block head_title %}{{ the_content.name }}{% endblock head_title %}
 {% block content %}
     <style>
     .breadcrumnd-episode-details:before{
@@ -98,22 +99,22 @@
                     {% endfor %}
                 </div>
                 <div class="col-12">
-                    {% if contents.has_other_pages %}
+                    {% if episodes.has_other_pages %}
                         <div class="pagination">
-                            {% if contents.has_previous %}
+                            {% if episodes.has_previous %}
                                 <a class="prev page-numbers"
-                                   href="?page={{ contents.previous_page_number }}"><span class="screen-reader-text">Previous Page</span></a>
+                                   href="?page={{ episodes.previous_page_number }}"><span class="screen-reader-text">Previous Page</span></a>
                             {% endif %}
-                            {% for num in contents.paginator.page_range %}
-                                {% if contents.number == num %}
+                            {% for num in episodes.paginator.page_range %}
+                                {% if episodes.number == num %}
                                     <span aria-current="page" class="page-numbers current"><span class="screen-reader-text">Page</span>{{ num }}</span>
                                 {% else %}
                                     <a class="page-numbers" href="?page={{ num }}"><span class="screen-reader-text">Page</span>{{ num }}</a>
                                 {% endif %}
                             {% endfor %}
-                            {% if contents.has_next %}
+                            {% if episodes.has_next %}
                                 <a class="next page-numbers"
-                                   href="?page={{ contents.next_page_number }}"><span class="screen-reader-text">Next Page</span></a>
+                                   href="?page={{ episodes.next_page_number }}"><span class="screen-reader-text">Next Page</span></a>
                             {% endif %}
                         </div>
                     {% endif %}
