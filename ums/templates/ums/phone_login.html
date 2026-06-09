@@ -1,0 +1,100 @@
+{% extends 'content/base.html' %}
+{% load static %}
+
+{% block head_title %}
+    {% if no_subscription %}No Active Subscription{% else %}Sign In{% endif %}
+{% endblock head_title %}
+
+{% block content %}
+    <!-- Breadcrumnd Banner Start -->
+    <section class="breadcrumnd-banner">
+        <div class="container">
+            <div class="breadcrumnd-content text-center">
+                <h3 class="text-uppercase fw-500 white-clr mb-xxl-6 mb-xl-5 mb-4">
+                    {% if no_subscription %}No Active Subscription{% else %}Sign In{% endif %}
+                </h3>
+                <ul class="breadcrumnd d-flex justify-content-center align-items-center gap-xxl-3 gap-2">
+                    <li>
+                        <a href="/" class="text-uppercase fw-500">Home</a>
+                    </li>
+                    <li>
+                        <i class="ph ph-caret-right"></i>
+                    </li>
+                    <li class="text-uppercase">Sign In</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main start -->
+    <main class="main position-relative overflow-hidden" id="mains">
+        <section class="listing-section position-relative zindex1 whitebg pt-space pb-space">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="content p-xxl-8 p-xl-6 p-lg-5 p-4">
+
+                            {% if no_subscription %}
+                                {# ── Subscribe prompt ── #}
+                                <h4 class="black-clr mb-xxl-6 mb-xl-5 mb-4">No Active Subscription Found</h4>
+                                <p class="pra-clr mb-xxl-6 mb-xl-5 mb-4">
+                                    <strong>{{ msisdn }}</strong> does not have an active subscription.
+                                </p>
+                                {% if redirect_url %}
+                                    <a href="{{ redirect_url }}" class="view-all d-flex align-items-center justify-content-center gap-2 text-uppercase py-xxl-4 py-xl-4 py-3 px-xxl-8 px-xl-6 px-5 w-100 mb-4">
+                                        <i class="ph-bold ph-plus-circle me-2"></i> Subscribe Now
+                                    </a>
+                                {% endif %}
+                                <div class="text-center mt-3">
+                                    <a href="{% url 'ums:phone_login' %}?reset=1" class="theme-clr">Try a different number</a>
+                                </div>
+
+                            {% else %}
+                                {# ── Phone + Name input form ── #}
+                                <h4 class="black-clr mb-xxl-6 mb-xl-5 mb-4">Check your subscription</h4>
+
+                                {% if error %}
+                                    <div class="alert alert-danger pra-clr mb-xxl-5 mb-xl-4 mb-3">{{ error }}</div>
+                                {% endif %}
+
+                                <form method="post" action="{% url 'ums:phone_login' %}">
+                                    {% csrf_token %}
+                                    {% if next %}
+                                        <input type="hidden" name="next" value="{{ next }}">
+                                    {% endif %}
+
+                                    <div class="mb-xxl-5 mb-xl-4 mb-3">
+                                        <label class="fw-500 mb-2">Your Name</label>
+                                        <input type="text"
+                                               name="first_name"
+                                               class="form-control w-100 p-3 rounded"
+                                               placeholder="Enter your name"
+                                               style="border: 1px solid #ddd;">
+                                    </div>
+
+                                    <div class="mb-xxl-5 mb-xl-4 mb-3">
+                                        <label class="fw-500 mb-2">Phone Number</label>
+                                        <input type="tel"
+                                               name="phone"
+                                               required
+                                               value="{{ saved_phone|default:'' }}"
+                                               class="form-control w-100 p-3 rounded"
+                                               placeholder="e.g. 08031234567"
+                                               style="border: 1px solid #ddd;">
+                                    </div>
+
+                                    <button type="submit"
+                                            class="view-all d-flex align-items-center justify-content-center gap-2 text-uppercase py-xxl-4 py-xl-4 py-3 px-xxl-8 px-xl-6 px-5 w-100">
+                                        Check Subscription
+                                    </button>
+                                </form>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Main End -->
+{% endblock content %}

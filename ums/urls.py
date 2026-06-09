@@ -1,10 +1,10 @@
 from django.urls import path
 from .views import *
 
-
 app_name = "ums"
 
 urlpatterns = [
+    path("phone-login/", phone_login, name="phone_login"),
     path("awaiting_response/", awaiting_response, name="awaiting_response"),
     path("onboarding/", onboarding, name="onboarding"),
     path("subscribe/", subscribe, name="subscribe"),
@@ -38,16 +38,7 @@ urlpatterns = [
         campaign_partner_user_behaviour_compiled_query,
         name="campaign_partner_user_behaviour_compiled_query",
     ),
-    path(
-        "reconcile_subscribtions/",
-        reconcile_subscribtions,
-        name="reconcile_subscribtions",
-    ),
-    path(
-        "get_cr_data/",
-        get_cr_data,
-        name="get_cr_data",
-    ),
+    path("get_cr_data/", get_cr_data, name="get_cr_data"),
     path(
         "export-user-msisdn/",
         export_user_msisdn_query,
@@ -68,5 +59,5 @@ urlpatterns = [
         callback_notification,
         name="callback_notification",
     ),
-    path("data-sync/", data_sync_v2, name="data_sync_v2"),
+    path("data-sync-v2/", data_sync_v2, name="data_sync_v2"),
 ]

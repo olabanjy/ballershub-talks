@@ -2,6 +2,7 @@ from django.http import (
     HttpResponse,
 )
 from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.cache import never_cache
 
 from django.shortcuts import render, redirect
 
@@ -11,6 +12,7 @@ from django.http import JsonResponse
 
 from datetime import datetime
 from django.db.models import Sum
+import logging
 
 
 from .models import *
@@ -20,6 +22,161 @@ import json
 from . import choices, tasks
 
 from django.utils.crypto import get_random_string
+
+from .utils import (
+    resolve_msisdn_from_request,
+    _normalize_msisdn,
+    _intellihq_check_subscriber,
+    _sync_subscription_from_intellihq,
+    set_auth_cookies,
+)
+
+logger = logging.getLogger(__name__)
+
+
+# ════════════════════════════════════════════════════════
+#  Phone Login – the primary user-facing auth view
+#  User enters name + phone → IntelliHQ checks subscription
+# ════════════════════════════════════════════════════════
+
+
+@never_cache
+def phone_login(request):
+    """
+    GET  → show the name+phone form (or subscribe prompt if returning)
+    POST → normalize phone, call IntelliHQ, sync or show subscribe link
+    """
+    next_url = request.GET.get("next") or request.POST.get("next") or ""
+
+    # ── STEP 0: Handle ?reset=1 (clear stored state) ──
+    if request.method == "GET" and request.GET.get("reset"):
+        request.session.pop("sub_redirect_url", None)
+        request.session.pop("saved_phone", None)
+
+    # ── STEP 1: GET — returning user with saved redirect? ──
+    if request.method == "GET":
+        msisdn = resolve_msisdn_from_request(request)
+        saved_redirect = request.session.get("sub_redirect_url")
+        if msisdn and saved_redirect:
+            return render(
+                request,
+                "ums/phone_login.html",
+                {
+                    "no_subscription": True,
+                    "msisdn": msisdn,
+                    "redirect_url": saved_redirect,
+                    "next": next_url,
+                },
+            )
+
+    # ── STEP 2: POST — form submitted ──
+    if request.method == "POST":
+        phone = request.POST.get("phone", "").strip()
+        first_name = request.POST.get("first_name", "").strip()
+
+        if not phone:
+            return render(
+                request,
+                "ums/phone_login.html",
+                {"error": "Please enter a phone number.", "next": next_url},
+            )
+
+        msisdn = _normalize_msisdn(phone)
+        request.session["saved_phone"] = msisdn
+
+        # Create or update the user profile with name
+        profile, _ = UserProfile.objects.get_or_create(phone=msisdn)
+        if first_name and not profile.first_name:
+            profile.first_name = first_name
+            profile.save(update_fields=["first_name"])
+
+        # 2a: Call IntelliHQ
+        try:
+            result = _intellihq_check_subscriber(msisdn)
+        except Exception as exc:
+            logger.error(f"[IntelliHQ] check-subscriber failed for {msisdn}: {exc}")
+            return set_auth_cookies(
+                render(
+                    request,
+                    "ums/phone_login.html",
+                    {
+                        "error": "Service unavailable. Please try again.",
+                        "next": next_url,
+                    },
+                ),
+                msisdn,
+            )
+
+        # 2b: Normalise list → dict
+        if isinstance(result, list):
+            result = result[0] if result else {}
+        if not isinstance(result, dict) or not result.get("success"):
+            return set_auth_cookies(
+                render(
+                    request,
+                    "ums/phone_login.html",
+                    {
+                        "error": result.get(
+                            "message",
+                            "Unable to verify subscription. Please try again.",
+                        ),
+                        "next": next_url,
+                    },
+                ),
+                msisdn,
+            )
+
+        # 2c: Parse subscription data
+        sub_data = result.get("data") or {}
+        if isinstance(sub_data, list):
+            sub_data = sub_data[0] if sub_data else {}
+        has_active = sub_data.get("has_active_subscription", False)
+
+        # ── STEP 3: SUBSCRIBED ──
+        if has_active:
+            _sync_subscription_from_intellihq(msisdn, sub_data)
+            request.session.pop("sub_redirect_url", None)
+            redirect_to = next_url or "content:home"
+            response = redirect(redirect_to)
+            return set_auth_cookies(response, msisdn, sub_active=True)
+
+        # No active subscription — show subscribe prompt
+        redirect_url = ""
+        client_actions = sub_data.get("client_action") or []
+        if isinstance(client_actions, list):
+            for action in client_actions:
+                if isinstance(action, dict) and action.get("action") == "redirect":
+                    redirect_url = action.get("redirection_url", "")
+                    break
+        elif isinstance(client_actions, dict):
+            redirect_url = client_actions.get("redirection_url", "")
+
+        if redirect_url:
+            request.session["sub_redirect_url"] = redirect_url
+
+        return set_auth_cookies(
+            render(
+                request,
+                "ums/phone_login.html",
+                {
+                    "no_subscription": True,
+                    "msisdn": msisdn,
+                    "redirect_url": redirect_url,
+                    "next": next_url,
+                },
+            ),
+            msisdn,
+        )
+
+    # ── STEP 4: Fresh GET — show the form ──
+    return render(
+        request,
+        "ums/phone_login.html",
+        {
+            "saved_phone": request.session.pop("saved_phone", None),
+            "next": next_url,
+        },
+    )
 
 
 def subscribe(request):
@@ -329,55 +486,27 @@ def reconcile_subscribtions(request):
 @require_GET
 @csrf_exempt
 def check_sub_status(request):
-    data = dict(request.headers)
+    from .utils import resolve_msisdn_from_request
 
-    print(request.headers)
-    print(data)
-    print(type(data))
+    msisdn = resolve_msisdn_from_request(request)
 
-    json_resp = {}
-
-    msisdn_data = data.get("Msisdn")
-    if msisdn_data:
-        msisdn = data["Msisdn"]
-        if msisdn.startswith("0") and len(msisdn) == 11:
-            msisdn = msisdn.replace("0", "234", 1)
-
+    if msisdn:
         theUser, _ = UserProfile.objects.get_or_create(phone=msisdn)
         fetchSubscribtion = UserSubscribtion.objects.filter(user=theUser)
         if fetchSubscribtion.exists():
             theSub = fetchSubscribtion.first()
             if theSub.sub_active == True:
-                json_resp.update(
+                return JsonResponse(
                     {
                         "status": True,
                         "message": "Msisdn has active subscribtion",
                     }
                 )
-            else:
-                json_resp.update(
-                    {
-                        "status": False,
-                        "message": "No Active subscribtion",
-                    }
-                )
-        else:
-            json_resp.update(
-                {
-                    "status": False,
-                    "message": "No Active subscribtion",
-                }
-            )
-    else:
-        json_resp.update(
-            {
-                "status": False,
-                "message": "No Active subscribtion",
-            }
-        )
-
     return JsonResponse(
-        data=json_resp,
+        {
+            "status": False,
+            "message": "No Active subscribtion",
+        }
     )
 
 

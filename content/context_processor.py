@@ -1,14 +1,9 @@
-##########
-
-from .models import Show, ContentGenre
+from ums.utils import resolve_msisdn_from_request
 
 
 def fetch_msisdn(request):
-    if "Msisdn" in request.headers:
-        msisdn = request.headers["Msisdn"]
-        return {"msisdn": msisdn}
-    else:
-        return {"msisdn": "Start Watching"}
+    msisdn = resolve_msisdn_from_request(request)
+    return {"msisdn": msisdn or "Start Watching"}
 
 
 def get_shows(request):
